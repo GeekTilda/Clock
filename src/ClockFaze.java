@@ -1,11 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalTime;
 
 public class ClockFaze extends JPanel { //Yes, I can apperently not gammar.
     private int size;
     private int middle;
     final double angle = (2*Math.PI)/12;
     private int cirkSize;
+    private int dx,dy;
     private Dimension dim = new Dimension(size,size);
 
     public ClockFaze(int size) {
@@ -20,6 +22,9 @@ public class ClockFaze extends JPanel { //Yes, I can apperently not gammar.
         super.paintComponent(g);
         face(g);
         drawNum(g);
+
+        drawSecond(g);
+        repaint(); //??
     }
 
     public void face(Graphics g) {
@@ -39,7 +44,19 @@ public class ClockFaze extends JPanel { //Yes, I can apperently not gammar.
             dy = (int) (-dist * Math.cos(v)) + middle;
             g.setColor(Color.BLACK);
             g.drawString(String.valueOf(i),dx,dy);
+            g.setColor(Color.PINK);
             g.fillOval(dx,dy,7,7);
         }
+    }
+
+    public void drawSecond(Graphics g) {
+        double v = angle/5;
+        int dist = 100;
+        LocalTime time = LocalTime.now();
+        int second = time.getSecond();
+        dx = (int) (dist * Math.sin(v)) + middle;
+        dy = (int) (-dist * Math.cos(v)) + middle;
+        g.setColor(Color.BLACK);
+        g.drawLine(middle,middle,dx,dy);
     }
 }
