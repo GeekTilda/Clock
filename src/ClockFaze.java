@@ -24,6 +24,8 @@ public class ClockFaze extends JPanel { //Yes, I can apperently not gammar.
         drawNum(g);
 
         drawSecond(g);
+        drawMinute(g);
+        drawHour(g);
         repaint(); //??
     }
 
@@ -54,8 +56,28 @@ public class ClockFaze extends JPanel { //Yes, I can apperently not gammar.
         int dist = 100;
         LocalTime time = LocalTime.now();
         int second = time.getSecond();
-        dx = (int) (dist * Math.sin(v)) + middle;
-        dy = (int) (-dist * Math.cos(v)) + middle;
+        dx = (int) (dist * Math.sin(v*second)) + middle;
+        dy = (int) (-dist * Math.cos(v*second)) + middle;
+        g.setColor(Color.PINK);
+        g.drawLine(middle,middle,dx,dy);
+    }
+
+    public void drawMinute(Graphics g) {
+        double v = angle/5;
+        int dist = 75;
+        LocalTime time = LocalTime.now();
+        int minute = time.getMinute();
+        dx = (int) (dist * Math.sin(v*minute)) + middle;
+        dy = (int) (-dist * Math.cos(v*minute)) + middle;
+        g.setColor(Color.BLACK);
+        g.drawLine(middle,middle,dx,dy);
+    }
+    public void drawHour(Graphics g) {
+        int dist = 50;
+        LocalTime time = LocalTime.now();
+        int hour = time.getHour();
+        dx = (int) (dist * Math.sin(angle*hour)) + middle;
+        dy = (int) (-dist * Math.cos(angle*hour)) + middle;
         g.setColor(Color.BLACK);
         g.drawLine(middle,middle,dx,dy);
     }
